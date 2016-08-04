@@ -44,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)checkRowAtIndexPath: (NSIndexPath *)indexPath animated: (BOOL)animated;
 - (void)uncheckRowAtIndexPath: (NSIndexPath *)indexPath;
 
-// TODO: Perhaps add -itemsForSection: or -itemsForSectionNamed:
-
 @end
 
 NS_ASSUME_NONNULL_END

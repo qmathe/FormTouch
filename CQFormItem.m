@@ -24,8 +24,6 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 
 #pragma mark - Initialization
 
-// TODO: Support something like –registerNib:forCellWithReuseIdentifier:
-
 - (instancetype)initWithView: (UIView *)aView
 {
 	NILARG_EXCEPTION_TEST(aView);
@@ -180,6 +178,7 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 - (void)setValue:(id)aValue
 {
 	//NSLog(@"== Value changing from %@ to %@ for %@ ==", self.value, aValue, self.representedObject);
+
 	// TODO: Move the next line into a updateBlock and call instead -updateRepresentedObjectFromView
 	[self.representedObject setValue: aValue
 	                      forKeyPath: self.keyPath];

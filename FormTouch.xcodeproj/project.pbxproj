@@ -40,6 +40,7 @@
 		6009E2B51D534052006424BD /* CQMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMacros.h; sourceTree = "<group>"; };
 		6009E2B71D535F1F006424BD /* CQFormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQFormView.h; sourceTree = SOURCE_ROOT; };
 		6009E2B81D535F20006424BD /* CQFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQFormView.m; sourceTree = SOURCE_ROOT; };
+		6009E2BB1D538E4A006424BD /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				6009E2B41D533FB2006424BD /* README.md */,
+				6009E2BB1D538E4A006424BD /* TODO.md */,
 				6009E2B31D533FB2006424BD /* LICENSE */,
 				6009E28F1D533F4B006424BD /* FormTouch */,
 				6009E2981D533F6E006424BD /* Supporting Files */,
