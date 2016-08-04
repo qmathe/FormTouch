@@ -12,50 +12,6 @@
 
 NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 
-@interface CQFormCellFactory : NSObject
-{
-	@private
-	IBOutlet CQFormCell *formCell;
-}
-@end
-
-@implementation CQFormCellFactory
-
-static CQFormCellFactory *sharedInstance = nil;
-
-+ (void)initialize
-{
-	if (self != [CQFormCellFactory  class])
-		return;
-
-	sharedInstance = [self new];
-}
-
-+ (id)sharedInstance
-{
-	return sharedInstance;
-}
-
-- (void)prepareTextFieldView
-{
-	[[NSBundle mainBundle] loadNibNamed: @"CQFormCell" owner: self options: nil];
-	formCell.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (instancetype)init
-{
-	SUPERINIT;
-	[self prepareTextFieldView];
-	return self;
-}
-
-- (CQFormCell *)textFieldView
-{
-	return formCell;
-}
-
-@end
-
 
 @interface CQFormItem ()
 - (void)setViewLabel: (NSString *)aLabel;
@@ -95,7 +51,12 @@ static CQFormCellFactory *sharedInstance = nil;
 
 - (instancetype)init
 {
-	return [self initWithView: [[CQFormCellFactory sharedInstance] textFieldView]];
+	CQFormCell *formCell = (CQFormCell *)[[NSBundle mainBundle]
+		loadNibNamed: @"CQFormCell" owner: self options: nil];
+
+	formCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+	return [self initWithView: formCell];
 }
 
 - (void)dealloc
