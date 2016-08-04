@@ -7,7 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <FormTouch/CQLayoutItem.h>
+#import <UIKit/UIKit.h>
 
 extern NSString * const CQFormItemUndefinedValue;
 
@@ -22,15 +22,39 @@ extern NSString * const CQFormItemUndefinedValue;
 @property (nonatomic, readonly) UIView *valueEditor;
 @end
 
+@class CQFormItem;
+
+typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
+
+
 /**
  * Each item represents a UI component to edit a represented object property.
  *
  * This UI component can be presented as a form row with CQFormView.
  */
-@interface CQFormItem : CQLayoutItem
+@interface CQFormItem : NSObject <NSCopying>
+
+
+/** @taskunit Initialization */
+
 
 - (instancetype)initWithView: (UIView *)aView;
 - (instancetype)init;
+
+
+/** @taskunit Reacting to View and Represented Object Changes */
+
+
+@property (nonatomic, copy) NSSet *observedKeyPaths;
+
+/**
+ * Can be overriden to extend the Key-Value observation.
+ */
+- (void)updateObservedKeyPaths;
+
+
+/** @taskunit Form Configuration */
+
 
 /**
  * Returns an empty string.
@@ -56,6 +80,8 @@ extern NSString * const CQFormItemUndefinedValue;
  * The view used to view or edit the value.
  *
  * Will call -updateControlEvents.
+ *
+ * Attempt to set a nil view, raises a NSInvalidArgumentException.
  */
 @property (nonatomic) UIView *view;
 /**
@@ -106,6 +132,11 @@ extern NSString * const CQFormItemUndefinedValue;
  * See -value and -setValue:.
  */
 @property (nonatomic) NSString *label;
+
+
+/** @taskunit Converting Value between View and Model */
+
+
 /**
  * The formatter that converts between the value representation between the view 
  * and the represented object.
@@ -121,6 +152,49 @@ extern NSString * const CQFormItemUndefinedValue;
 
 - (NSString *)stringFromObjectValue: (id)aValue;
 - (id)objectValueFromString: (NSString *)aValue;
+
+
+/** @taskunit Refreshing View */
+
+
+/**
+ * Invokes the refresh block if available.
+ *
+ * This method is automatically called on -[CQCollectionView setContent:] and 
+ * KVO notifications posted for the observed key paths.
+ *
+ * Will also be called automatically by -setView:, -setRepresentedObject:,
+ * -setObservedKeyPaths: and -setRefreshBlock:.
+ *
+ * Can be overriden to implement a refresh in reaction to represented object 
+ * changes.
+ */
+- (void)refreshViewFromRepresentedObject;
+- (void)enableRefresh;
+- (void)disableRefresh;
+
+@property (nonatomic, readonly) BOOL canRefresh;
+/**
+ * -representedObject can be nil when this block is evaluated, unlike -view and 
+ * -keyPath.
+ *
+ * For subclasses such as CQFormItem, using -[CQFormItem value] or 
+ * -[CQFormOptionItem affectedValue] to access the current state is the proper 
+ * thing to do.
+ */
+@property (nonatomic, copy) CQFormItemActionBlock refreshBlock;
+
+
+/** @taskunit Updating Model */
+
+
+- (void)updateRepresentedObjectFromView;
+
+@property (nonatomic, copy) CQFormItemActionBlock updateBlock;
+
+
+/** @taskunit Editing */
+
 
 @property (nonatomic, assign) UIControlEvents beginEditingEvents;
 /**
@@ -186,7 +260,9 @@ extern NSString * const CQFormItemUndefinedValue;
  */
 - (void)updateControlEvents;
 
-/** @taskunit Additional Actions */
+
+/** @taskunit Selection and Highlighting */
+
 
 @property (nonatomic, readonly) BOOL isHighlightable;
 @property (nonatomic, readonly) BOOL isChecked;
@@ -208,7 +284,6 @@ extern NSString * const CQFormItemUndefinedValue;
  * Can be overriden.
  */
 - (void)didDeselect;
-
 /**
  * Will be called by -didSelect.
  *
@@ -216,10 +291,6 @@ extern NSString * const CQFormItemUndefinedValue;
  * before returning to ensure the row is deselected once the selection is 
  * handled.
  */
-@property (nonatomic, copy) CQLayoutItemActionBlock selectBlock;
-
-/** @taskunit Extending Observation */
-
-- (void)updateObservedKeyPaths;
+@property (nonatomic, copy) CQFormItemActionBlock selectBlock;
 
 @end

@@ -22,20 +22,22 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	BOOL _isChangingEditorValue;
 }
 
-@dynamic view, representedObject;
+#pragma mark - Initialization
 
 // TODO: Support something like –registerNib:forCellWithReuseIdentifier:
 
 - (instancetype)initWithView: (UIView *)aView
 {
-	self = [super initWithView: aView];
-	if (self == nil)
-		return nil;
+	NILARG_EXCEPTION_TEST(aView);
 
+	SUPERINIT;
+
+	_view = aView;
 	_sectionName = [[self class] defaultSectionName];
+	_canRefresh = YES;
 
 	[self disableRefresh];
-	self.refreshBlock = ^(CQLayoutItem *item)
+	self.refreshBlock = ^(CQFormItem *item)
 	{
 		UIView *editor = [(CQFormItem *)item editorForView: item.view];
 
@@ -62,7 +64,23 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 - (void)dealloc
 {
 	[self stopControlEventObservation];
+	self.observedKeyPaths = nil;
 }
+
+- (instancetype)copyWithZone: (NSZone *)aZone
+{
+	CQFormItem *newItem = [[[self class] allocWithZone: aZone] init];
+
+	newItem->_view =
+		[NSKeyedUnarchiver unarchiveObjectWithData: [NSKeyedArchiver archivedDataWithRootObject: _view]];
+	newItem->_representedObject = _representedObject;
+	newItem->_refreshBlock = [_refreshBlock copyWithZone: aZone];
+	newItem.observedKeyPaths = _observedKeyPaths;
+
+	return newItem;
+}
+
+#pragma mark - Debugging
 
 - (NSString *)description
 {
@@ -70,26 +88,37 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 		self.keyPath, self.representedObject];
 }
 
-/*- (void)enableRefresh
+#pragma mark - Key-Value Observation
+
+- (void)observeValueForKeyPath: (NSString *)keyPath
+					  ofObject: (id)object
+						change: (NSDictionary *)change
+					   context: (void *)context
 {
-	[super enableRefresh];
-	[self resetControlEventObservation];
+	NSParameterAssert([_observedKeyPaths containsObject: keyPath]);
+	/*NSLog(@"Did change value of %@ from %@ to %@", object,
+		  [change objectForKey: NSKeyValueChangeOldKey],
+		  [change objectForKey: NSKeyValueChangeNewKey]);*/
+
+	[self refreshViewFromRepresentedObject];
 }
 
-- (void)disableRefresh
+- (void)setObservedKeyPaths: (NSSet *)keyPaths
 {
-	self.changeEvents = 0;
-}*/
+	for (NSString *keyPath in _observedKeyPaths)
+	{
+		[self removeObserver: self forKeyPath: keyPath];
+	}
 
-+ (NSString *)defaultSectionName
-{
-	return @"";
-}
+	_observedKeyPaths = [keyPaths copy];
 
-- (void)setSectionName: (NSString *)aName
-{
-	NILARG_EXCEPTION_TEST(aName);
-	_sectionName = [aName copy];
+	for (NSString *keyPath in _observedKeyPaths)
+	{
+		[self addObserver: self
+			   forKeyPath: keyPath
+				  options: NSKeyValueObservingOptionNew
+				  context: NULL];
+	}
 }
 
 - (void)updateObservedKeyPaths
@@ -102,6 +131,36 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	}
 
 	self.observedKeyPaths = keyPaths;
+}
+
+#pragma mark - Form Configuration
+
+- (void)setView: (UIView *)aView
+{
+	NILARG_EXCEPTION_TEST(aView);
+	[self stopControlEventObservation];
+	_view = aView;
+	[self refreshViewFromRepresentedObject];
+	/* Will call -resetControlEventObservation */
+	[self updateControlEvents];
+
+}
+
+- (void)setRepresentedObject: (id)anObject
+{
+	_representedObject = anObject;
+	[self refreshViewFromRepresentedObject];
+}
+
++ (NSString *)defaultSectionName
+{
+	return @"";
+}
+
+- (void)setSectionName: (NSString *)aName
+{
+	NILARG_EXCEPTION_TEST(aName);
+	_sectionName = [aName copy];
 }
 
 - (void)setKeyPath: (NSSet *)aKeyPath
@@ -162,6 +221,23 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	[self setViewLabel: aLabel];
 }
 
+#pragma mark - Refreshing View
+
+- (void)setRefreshBlock: (CQFormItemActionBlock)aBlock
+{
+	_refreshBlock = [aBlock copy];
+	[self refreshViewFromRepresentedObject];
+}
+
+
+- (void)refreshViewFromRepresentedObject
+{
+	if (!self.canRefresh || _refreshBlock == NULL)
+		return;
+
+	_refreshBlock(self);
+}
+
 /**
  * For a nil represented object, the detail text label is not set to 
  * 'CQFormItemUndefinedValue' to avoid setting this value on the first refresh
@@ -174,15 +250,6 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	{
 		((UITableViewCell *)self.view).detailTextLabel.text = [self stringFromObjectValue: self.value];
 	}
-}
-
-- (UIView *)editorForView: (UIView *)aView
-{
-	if ([aView conformsToProtocol:	@protocol(CQValueEditor)])
-	{
-		return [(id <CQValueEditor>)aView valueEditor];
-	}
-	return nil;
 }
 
 - (void)refreshObjectValueForEditor: (UIView *)aValueEditor
@@ -210,6 +277,55 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	}
 }
 
+- (void)enableRefresh
+{
+	NSAssert(!_canRefresh, @"Refresh is already enabled.");
+	_canRefresh = YES;
+	[self refreshViewFromRepresentedObject];
+}
+
+- (void)disableRefresh
+{
+	NSAssert(_canRefresh, @"Refresh is already disabled.");
+	_canRefresh = NO;
+}
+
+/*- (void)enableRefresh
+{
+	[super enableRefresh];
+	[self resetControlEventObservation];
+}
+
+- (void)disableRefresh
+{
+	self.changeEvents = 0;
+}*/
+
+- (UIView *)editorForView: (UIView *)aView
+{
+	if ([aView conformsToProtocol:	@protocol(CQValueEditor)])
+	{
+		return [(id <CQValueEditor>)aView valueEditor];
+	}
+	return nil;
+}
+
+#pragma mark - Updating Representing Object
+
+- (void)setUpdateBlock: (CQFormItemActionBlock)aBlock
+{
+	_refreshBlock = [aBlock copy];
+	[self updateRepresentedObjectFromView];
+}
+
+- (void)updateRepresentedObjectFromView
+{
+	if (_updateBlock == NULL)
+		return;
+	
+	_updateBlock(self);
+}
+
 - (NSString *)stringFromObjectValue: (id)aValue
 {
 	if (self.formatter == nil)
@@ -225,6 +341,8 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 
 	return value;
 }
+
+#pragma mark - Converting Value between View and Model
 
 - (id)objectValueFromString: (NSString *)aValue
 {
@@ -269,12 +387,7 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	return value;
 }
 
-- (void)editorDidChangeValue: (UIView *)aValueEditor
-{
-	_isChangingEditorValue = YES;
-	self.value = [self objectValueFromEditor: aValueEditor];
-	_isChangingEditorValue = NO;
-}
+#pragma mark - Selection and Highlighting
 
 - (BOOL)isHighlightable
 {
@@ -298,6 +411,8 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 {
 
 }
+
+#pragma mark - Control Event Observation
 
 - (void)updateControlEvents
 {
@@ -370,14 +485,7 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	}
 }
 
-- (void)setView: (UIView *)view
-{
-	[self stopControlEventObservation];
-	[super setView: view];
-	/* Will call -resetControlEventObservation */
-	[self updateControlEvents];
-
-}
+#pragma mark - Editing
 
 - (void)setBeginEditingEvents: (UIControlEvents)events
 {
@@ -394,6 +502,13 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 {
 	_changeEvents = events;
 	[self resetControlEventObservation];
+}
+
+- (void)editorDidChangeValue: (UIView *)aValueEditor
+{
+	_isChangingEditorValue = YES;
+	self.value = [self objectValueFromEditor: aValueEditor];
+	_isChangingEditorValue = NO;
 }
 
 - (void)setEndEditingEvents: (UIControlEvents)events
