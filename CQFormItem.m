@@ -67,19 +67,6 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	self.observedKeyPaths = [NSSet set];
 }
 
-- (instancetype)copyWithZone: (NSZone *)aZone
-{
-	CQFormItem *newItem = [[[self class] allocWithZone: aZone] init];
-
-	newItem->_view =
-		[NSKeyedUnarchiver unarchiveObjectWithData: [NSKeyedArchiver archivedDataWithRootObject: _view]];
-	newItem->_representedObject = _representedObject;
-	newItem->_refreshBlock = [_refreshBlock copyWithZone: aZone];
-	newItem.observedKeyPaths = _observedKeyPaths;
-
-	return newItem;
-}
-
 #pragma mark - Debugging
 
 - (NSString *)description

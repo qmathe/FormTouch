@@ -34,7 +34,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  *
  * This UI component can be presented as a form row with CQFormView.
  */
-@interface CQFormItem : NSObject <NSCopying>
+@interface CQFormItem : NSObject
 
 
 /** @taskunit Initialization */
