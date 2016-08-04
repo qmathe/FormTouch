@@ -10,6 +10,7 @@ TODO FormTouch
 ### CQFormItem
 
 - Support something like –registerNib:forCellWithReuseIdentifier:
+- API to set a left icon per row to easily reproduce the rows from Settings app
 
 ### CQFormView
 
