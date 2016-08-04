@@ -387,31 +387,6 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	return value;
 }
 
-#pragma mark - Selection and Highlighting
-
-- (BOOL)isHighlightable
-{
-	return (self.contentViewController != nil || self.selectBlock != NULL);
-}
-
-- (BOOL)isChecked
-{
-	return NO;
-}
-
-- (void)didSelect
-{
-	if (self.selectBlock == NULL)
-		return;
-
-	self.selectBlock(self);
-}
-
-- (void)didDeselect
-{
-
-}
-
 #pragma mark - Control Event Observation
 
 - (void)updateControlEvents
@@ -532,6 +507,31 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 		return;
 
 	[self refreshObjectValueForEditor: [self editorForView: self.view]];
+}
+
+#pragma mark - Selection and Highlighting
+
+- (BOOL)isHighlightable
+{
+	return (self.contentViewController != nil || self.selectBlock != NULL);
+}
+
+- (BOOL)isChecked
+{
+	return NO;
+}
+
+- (void)didSelect
+{
+	if (self.selectBlock == NULL)
+		return;
+
+	self.selectBlock(self);
+}
+
+- (void)didDeselect
+{
+
 }
 
 @end
