@@ -17,4 +17,4 @@ TODO FormTouch
 
 ## Swift
 
-- Add more Swift sugar in the vein of (Static)[https://github.com/venmo/Static]
+- Add more Swift sugar in the vein of [Static](https://github.com/venmo/Static)
