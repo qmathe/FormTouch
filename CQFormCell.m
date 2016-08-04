@@ -42,4 +42,14 @@
 	}
 }
 
+- (UILabel *)valueLabel
+{
+	return label;
+}
+
+- (UIView *)valueEditor
+{
+	return ([editor isKindOfClass: [UIControl class]] || [editor isKindOfClass: [UITextView class]] ? editor : nil);
+}
+
 @end

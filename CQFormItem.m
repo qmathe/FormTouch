@@ -7,6 +7,7 @@
  */
 
 #import "CQFormItem.h"
+#import "CQFormCell.h"
 #import "CQMacros.h"
 
 NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
@@ -458,19 +459,3 @@ static CQFormCellFactory *sharedInstance = nil;
 }
 
 @end
-
-
-@implementation CQFormCell (CQValueEditor)
-
-- (UILabel *)valueLabel
-{
-	return label;
-}
-
-- (UIView *)valueEditor
-{
-	return ([editor isKindOfClass: [UIControl class]] || [editor isKindOfClass: [UITextView class]] ? editor : nil);
-}
-
-@end
-

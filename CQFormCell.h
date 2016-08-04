@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <FormTouch/CQFormItem.h>
 
-@interface CQFormCell : UITableViewCell
+@interface CQFormCell : UITableViewCell <CQValueEditor>
 {
 	UILabel *label;
 	UIView *editor;

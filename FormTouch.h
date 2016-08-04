@@ -19,4 +19,3 @@ FOUNDATION_EXPORT const unsigned char FormTouchVersionString[];
 #import <FormTouch/CQFormOptionItem.h>
 #import <FormTouch/CQFormViewController.h>
 #import <FormTouch/CQLayoutItem.h>
-#import <FormTouch/CQFormMacros.h>

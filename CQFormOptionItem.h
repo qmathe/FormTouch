@@ -7,7 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CQFormItem.h"
+#import <FormTouch/CQFormItem.h>
 
 /**
  * Each item represents a selectable option to edit an affected object property,

@@ -7,8 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CQLayoutItem.h"
-#import "CQFormCell.h"
+#import <FormTouch/CQLayoutItem.h>
 
 extern NSString * const CQFormItemUndefinedValue;
 
@@ -223,8 +222,4 @@ extern NSString * const CQFormItemUndefinedValue;
 
 - (void)updateObservedKeyPaths;
 
-@end
-
-
-@interface CQFormCell (CQValueEditor) <CQValueEditor>
 @end
