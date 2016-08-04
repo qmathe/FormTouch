@@ -10,9 +10,6 @@
 #import "CQFormItem.h"
 #import "CQMacros.h"
 
-@interface CQFormView ()
-@property (nonatomic, copy) NSArray *sections;
-@end
 
 @implementation CQFormView
 {
