@@ -18,6 +18,8 @@
 		6009E2B01D533F99006424BD /* CQFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6009E2A41D533F99006424BD /* CQFormCell.m */; };
 		6009E2B21D533FA5006424BD /* FormCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6009E2B11D533FA5006424BD /* FormCell.xib */; };
 		6009E2B61D534052006424BD /* CQMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6009E2B51D534052006424BD /* CQMacros.h */; };
+		6009E2B91D535F20006424BD /* CQFormView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6009E2B71D535F1F006424BD /* CQFormView.h */; };
+		6009E2BA1D535F20006424BD /* CQFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6009E2B81D535F20006424BD /* CQFormView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		6009E2B31D533FB2006424BD /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6009E2B41D533FB2006424BD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6009E2B51D534052006424BD /* CQMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQMacros.h; sourceTree = "<group>"; };
+		6009E2B71D535F1F006424BD /* CQFormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQFormView.h; sourceTree = SOURCE_ROOT; };
+		6009E2B81D535F20006424BD /* CQFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQFormView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				6009E29C1D533F99006424BD /* CQFormItem.m */,
 				6009E29D1D533F99006424BD /* CQFormOptionItem.h */,
 				6009E29E1D533F99006424BD /* CQFormOptionItem.m */,
+				6009E2B71D535F1F006424BD /* CQFormView.h */,
+				6009E2B81D535F20006424BD /* CQFormView.m */,
 				6009E29F1D533F99006424BD /* CQFormViewController.h */,
 				6009E2A01D533F99006424BD /* CQFormViewController.m */,
 				6009E2B51D534052006424BD /* CQMacros.h */,
@@ -102,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6009E2AF1D533F99006424BD /* CQFormCell.h in Headers */,
+				6009E2B91D535F20006424BD /* CQFormView.h in Headers */,
 				6009E2B61D534052006424BD /* CQMacros.h in Headers */,
 				6009E2A91D533F99006424BD /* CQFormOptionItem.h in Headers */,
 				6009E2A71D533F99006424BD /* CQFormItem.h in Headers */,
@@ -182,6 +189,7 @@
 				6009E2AC1D533F99006424BD /* CQFormViewController.m in Sources */,
 				6009E2AA1D533F99006424BD /* CQFormOptionItem.m in Sources */,
 				6009E2A81D533F99006424BD /* CQFormItem.m in Sources */,
+				6009E2BA1D535F20006424BD /* CQFormView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
