@@ -7,14 +7,14 @@ TODO FormTouch
 - Wrote missing method/class/protocol doc
 - Carthage support
 
-## CQFormItem
+### CQFormItem
 
 - Support something like –registerNib:forCellWithReuseIdentifier:
 
-## CQFormView
+### CQFormView
 
 - Perhaps add -itemsForSection: or -itemsForSectionNamed:
 
-## Swift
+### Swift
 
 - Add more Swift sugar in the vein of [Static](https://github.com/venmo/Static)
