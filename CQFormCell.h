@@ -11,10 +11,6 @@
 #import <FormTouch/CQFormItem.h>
 
 @interface CQFormCell : UITableViewCell <CQValueEditor>
-{
-	UILabel *label;
-	UIView *editor;
-}
 
 @property (nonatomic, retain) IBOutlet UILabel *label;
 @property (nonatomic, retain) IBOutlet UIView *editor;

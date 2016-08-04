@@ -10,8 +10,6 @@
 
 @implementation CQFormCell
 
-@synthesize label, editor;
-
 - (UITextField *)textField
 {
 	if (![self.editor isKindOfClass: [UITextField class]])
@@ -29,13 +27,13 @@
 
 - (void)setEditor: (UIView *)anEditor
 {
-	if (editor != nil)
+	if (_editor != nil)
 	{
 		//anEditor.frame = editor.frame;
 		//anEditor.autoresizingMask = editor.autoresizingMask;
-		[editor removeFromSuperview];
+		[_editor removeFromSuperview];
 	}
-	editor = anEditor;
+	_editor = anEditor;
 	if (anEditor != nil)
 	{
 		[self.contentView addSubview: anEditor];
@@ -44,12 +42,12 @@
 
 - (UILabel *)valueLabel
 {
-	return label;
+	return _label;
 }
 
 - (UIView *)valueEditor
 {
-	return ([editor isKindOfClass: [UIControl class]] || [editor isKindOfClass: [UITextView class]] ? editor : nil);
+	return ([self.editor isKindOfClass: [UIControl class]] || [self.editor isKindOfClass: [UITextView class]] ? self.editor : nil);
 }
 
 @end
