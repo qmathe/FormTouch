@@ -64,7 +64,7 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 - (void)dealloc
 {
 	[self stopControlEventObservation];
-	self.observedKeyPaths = nil;
+	self.observedKeyPaths = [NSSet set];
 }
 
 - (instancetype)copyWithZone: (NSZone *)aZone

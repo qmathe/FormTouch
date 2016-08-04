@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <FormTouch/CQFormItem.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Each item represents a selectable option to edit an affected object property,
  * for which multiple options are allowed.
@@ -24,7 +26,7 @@
 /**
  * The model object that exposes the multi-option property.
  */
-@property (nonatomic) id affectedObject;
+@property (nonatomic, nullable) id affectedObject;
 /**
  * The multi-option property whose value is updated on selecting or deselecting 
  * this item.
@@ -33,13 +35,13 @@
  *
  * See -affectedValue and -setAffectedValue:.
  */
-@property (nonatomic, copy) NSString *affectedKeyPath;
+@property (nonatomic, copy, nullable) NSString *affectedKeyPath;
 /**
  * The value bound to the affected object key path.
  *
  * See -affectedKeyPath:.
  */
-@property (nonatomic) id affectedValue;
+@property (nonatomic, nullable) id affectedValue;
 
 
 /** @taskunit Selection and Highlighting */
@@ -52,3 +54,5 @@
 - (void)didDeselect;
 
 @end
+
+NS_ASSUME_NONNULL_END

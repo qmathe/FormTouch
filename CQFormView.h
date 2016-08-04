@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class CQFormItem;
+@class CQFormItem, CQFormOptionItem;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CQFormView : UITableView <UITableViewDataSource>
 
@@ -24,24 +26,26 @@
  * content automatically, and -setItems: must be called inside -beginUpdates
  * and -endUpdates (this will cause insertions and removals to be animated).
  */
-@property (nonatomic, readwrite) NSArray<CQFormItem *> *items;
+@property (nonatomic, readwrite) NSArray<__kindof CQFormItem *> *items;
 
 
 /** @taskunit Accessing Items */
 
 
-- (CQFormItem *)itemForIndexPath: (NSIndexPath *)indexPath;
-- (NSIndexPath *)indexPathForItem: (CQFormItem *)item;
+- (nullable CQFormItem *)itemForIndexPath: (NSIndexPath *)indexPath;
+- (nullable NSIndexPath *)indexPathForItem: (CQFormItem *)item;
 
 
 /** @taskunit Controlling Selection */
 
 
 - (BOOL)allowsMultipleSelectionForSection: (NSInteger)section;
-- (NSArray *)optionItemsRelatedToItem: (CQFormItem *)item;
+- (NSArray<CQFormOptionItem *> *)optionItemsRelatedToItem: (CQFormItem *)item;
 - (void)checkRowAtIndexPath: (NSIndexPath *)indexPath animated: (BOOL)animated;
 - (void)uncheckRowAtIndexPath: (NSIndexPath *)indexPath;
 
 // TODO: Perhaps add -itemsForSection: or -itemsForSectionNamed:
 
 @end
+
+NS_ASSUME_NONNULL_END

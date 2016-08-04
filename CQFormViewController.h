@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class CQFormItem, CQFormView;
 
 /**
@@ -27,7 +29,7 @@
 /** @taskunit Accessing Form View */
 
 
-@property (nonatomic) IBOutlet CQFormView *formView;
+@property (nonatomic, null_unspecified) IBOutlet CQFormView *formView;
 
 
 /** @taskunit Presenting Child Controller */
@@ -52,3 +54,5 @@
 - (CGFloat)tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath;
 
 @end
+
+NS_ASSUME_NONNULL_END

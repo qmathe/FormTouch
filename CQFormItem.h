@@ -9,17 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CQFormItemUndefinedValue;
 
 @protocol CQValueEditor
-@property (nonatomic, readonly) UILabel *valueLabel;
+@property (nonatomic, readonly, nullable) UILabel *valueLabel;
 /**
  * An editor which responds to one of these accessors -value, -isOn or -text. 
  *
  * One of these getters should be implemented. To support propagating model 
  * changes to the editor, a matching setter needs to be implemented.
  */
-@property (nonatomic, readonly) UIView *valueEditor;
+@property (nonatomic, readonly, nullable) UIView *valueEditor;
 @end
 
 @class CQFormItem;
@@ -45,7 +47,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
 /** @taskunit Reacting to View and Represented Object Changes */
 
 
-@property (nonatomic, copy) NSSet *observedKeyPaths;
+@property (nonatomic, copy) NSSet<NSString *> *observedKeyPaths;
 
 /**
  * Can be overriden to extend the Key-Value observation.
@@ -68,8 +70,8 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
 + (NSString *)defaultSectionName;
 
 /**
- * The section name or nil if the item must not be presented in a UITableView
- * section.
+ * The section name or an empty string if the item must not be presented in a 
+ * UITableView section.
  *
  * By default, returns +defaultSectionName.
  *
@@ -94,7 +96,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  * - set the new key path
  * - set the new represented object.
  */
-@property (nonatomic) id representedObject;
+@property (nonatomic, nullable) id representedObject;
 /**
  * The viewed or edited property whose value is updated on -changeEvents.
  *
@@ -102,7 +104,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  *
  * See -value and -setValue:.
  */
-@property (nonatomic, copy) NSString *keyPath;
+@property (nonatomic, copy, nullable) NSString *keyPath;
 /**
  * The value bound to the represented object key path.
  *
@@ -111,7 +113,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  *
  * See -keyPath:.
  */
-@property (nonatomic) id value;
+@property (nonatomic, nullable) id value;
 /**
  * An optional view controller to present the value content.
  *
@@ -125,13 +127,13 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  *
  * By default, returns nil and does nothing in reaction to tap events.
  */
-@property (nonatomic) UIViewController *contentViewController;
+@property (nonatomic, nullable) UIViewController *contentViewController;
 /**
  * The label that describes the value role.
  *
  * See -value and -setValue:.
  */
-@property (nonatomic) NSString *label;
+@property (nonatomic, nullable) NSString *label;
 
 
 /** @taskunit Converting Value between View and Model */
@@ -148,10 +150,10 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  *
  * See -value and -setValue:.
  */
-@property (nonatomic) NSFormatter *formatter;
+@property (nonatomic, nullable) NSFormatter *formatter;
 
-- (NSString *)stringFromObjectValue: (id)aValue;
-- (id)objectValueFromString: (NSString *)aValue;
+- (nullable NSString *)stringFromObjectValue: (nullable id)aValue;
+- (nullable id)objectValueFromString: (nullable NSString *)aValue;
 
 
 /** @taskunit Refreshing View */
@@ -182,7 +184,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  * -[CQFormOptionItem affectedValue] to access the current state is the proper 
  * thing to do.
  */
-@property (nonatomic, copy) CQFormItemActionBlock refreshBlock;
+@property (nonatomic, copy, nullable) CQFormItemActionBlock refreshBlock;
 
 
 /** @taskunit Updating Model */
@@ -190,7 +192,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
 
 - (void)updateRepresentedObjectFromView;
 
-@property (nonatomic, copy) CQFormItemActionBlock updateBlock;
+@property (nonatomic, copy, nullable) CQFormItemActionBlock updateBlock;
 
 
 /** @taskunit Editing */
@@ -291,6 +293,8 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  * before returning to ensure the row is deselected once the selection is 
  * handled.
  */
-@property (nonatomic, copy) CQFormItemActionBlock selectBlock;
+@property (nonatomic, copy, nullable) CQFormItemActionBlock selectBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END
