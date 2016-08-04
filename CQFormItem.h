@@ -116,7 +116,7 @@ typedef void (^ CQFormItemActionBlock)(CQFormItem *item);
  * An optional view controller to present the value content.
  *
  * This controller is pushed on the current navigation stack when the receiver 
- * is tapped. To get this behavior, a CQFormViewControlle must manage the form 
+ * is tapped. To get this behavior, a CQFormViewController must manage the form 
  * view presenting the receiver.
  *
  * The presented content is either the value elements when the value is a 
