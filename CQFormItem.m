@@ -39,11 +39,11 @@ NSString * const CQFormItemUndefinedValue = @"CQFormItemUndefinedValue";
 	[self disableRefresh];
 	self.refreshBlock = ^(CQFormItem *item)
 	{
-		UIView *editor = [(CQFormItem *)item editorForView: item.view];
+		UIView *editor = [item editorForView: item.view];
 
-		[(CQFormItem *)item setViewLabel: ((CQFormItem *)item).label];
-		[(CQFormItem *)item refreshObjectValueForEditor: editor];
-		[(CQFormItem *)item refreshDetailTextLabel];
+		[item setViewLabel: item.label];
+		[item refreshObjectValueForEditor: editor];
+		[item refreshDetailTextLabel];
 	};
 	[self enableRefresh];
 	[self updateControlEvents];
