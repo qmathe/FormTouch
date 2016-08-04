@@ -11,13 +11,7 @@
 
 @implementation CQFormOptionItem
 
-/**
- * Prevents self.value to appear as detail text when the value is a string.
- */
-- (void)refreshDetailTextLabel
-{
-
-}
+#pragma mark - Key-Value Observation
 
 - (void)updateObservedKeyPaths
 {
@@ -33,6 +27,19 @@
 	}
 	self.observedKeyPaths = keyPaths;
 }
+
+#pragma mark - Refreshing View
+
+
+/**
+ * Prevents self.value to appear as detail text when the value is a string.
+ */
+- (void)refreshDetailTextLabel
+{
+
+}
+
+#pragma mark - Getting and Setting Active Option
 
 - (void)setAffectedKeyPath: (NSString *)aKeyPath
 {
@@ -54,6 +61,8 @@
 	[self.affectedObject setValue: aValue
 	                    forKeyPath: self.affectedKeyPath];
 }
+
+#pragma mark - Selection and Highlighting
 
 - (BOOL)isHighlightable
 {

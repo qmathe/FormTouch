@@ -17,6 +17,10 @@
  */
 @interface CQFormOptionItem : CQFormItem
 
+
+/** @taskunit Getting and Setting Active Option */
+
+
 /**
  * The model object that exposes the multi-option property.
  */
@@ -38,7 +42,8 @@
 @property (nonatomic) id affectedValue;
 
 
-/** @taskunit Overriden Actions */
+/** @taskunit Selection and Highlighting */
+
 
 @property (nonatomic, readonly) BOOL isHighlightable;
 @property (nonatomic, readonly) BOOL isChecked;
