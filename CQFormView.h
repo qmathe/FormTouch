@@ -13,7 +13,9 @@
 
 @interface CQFormView : UITableView <UITableViewDataSource>
 
+
 /** @taskunit Animating Insertion and Removal */
+
 
 /**
  * Sets the current items.
@@ -24,12 +26,16 @@
  */
 @property (nonatomic, readwrite) NSArray<CQFormItem *> *items;
 
+
 /** @taskunit Accessing Items */
+
 
 - (CQFormItem *)itemForIndexPath: (NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForItem: (CQFormItem *)item;
 
+
 /** @taskunit Controlling Selection */
+
 
 - (BOOL)allowsMultipleSelectionForSection: (NSInteger)section;
 - (NSArray *)optionItemsRelatedToItem: (CQFormItem *)item;
