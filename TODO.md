@@ -5,6 +5,7 @@ TODO FormTouch
 - Wrote some tests
 - Migrate to appledoc and generate documentation
 - Wrote missing method/class/protocol doc
+- Carthage support
 
 ## CQFormItem
 
@@ -13,3 +14,7 @@ TODO FormTouch
 ## CQFormView
 
 - Perhaps add -itemsForSection: or -itemsForSectionNamed:
+
+## Swift
+
+- Add more Swift sugar in the vein of (Static)[https://github.com/venmo/Static]
