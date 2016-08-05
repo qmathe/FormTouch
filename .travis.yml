@@ -1,0 +1,5 @@
+language: objective-c
+notifications:
+  email:
+    recipients:
+      - quentin.mathe@gmail.com
