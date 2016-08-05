@@ -5,3 +5,4 @@ notifications:
       - quentin.mathe@gmail.com
 xcode_project: FormTouch.xcodeproj
 xcode_scheme: FormTouch
+osx_image: xcode7
