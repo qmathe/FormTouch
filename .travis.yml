@@ -3,3 +3,5 @@ notifications:
   email:
     recipients:
       - quentin.mathe@gmail.com
+xcode_project: FormTouch.xcodeproj
+xcode_scheme: FormTouch
