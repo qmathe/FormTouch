@@ -1,6 +1,8 @@
 FormTouch
 =========
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 FormTouch is a minimalist and extensible form framework that makes it really easy to build static table views and complex nested forms with navigation. Its design is limited to a few core classes, but you can extend it to support new behaviors, cells and controls (slider, segmented control etc.). Out of the box, it includes:
 
 - model/view synchronization layer based on KVO
@@ -26,4 +28,12 @@ FormTouch requires iOS 8 or higher and Xcode 7 or higher.
 Installation
 ------------
 
-Build FormTouch framework and drop it in your Xcode project.
+### Carthage
+
+Add the following line to your Cartfile, run `carthage update` to build the framework and drag the built FormTouch.framework into your Xcode project.
+
+    github "ZipArchive/ZipArchive" to your Cartfile
+
+### Manually
+
+Build FormTouch framework and drop it into your Xcode project.
