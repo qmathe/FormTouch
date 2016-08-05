@@ -35,7 +35,7 @@ Installation
 
 Add the following line to your Cartfile, run `carthage update` to build the framework and drag the built FormTouch.framework into your Xcode project.
 
-    github "ZipArchive/ZipArchive" to your Cartfile
+    github "qmathe/FormTouch" to your Cartfile
 
 ### Manually
 
