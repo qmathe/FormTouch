@@ -3,7 +3,7 @@ FormTouch
 
 [![Build Status](https://travis-ci.org/qmathe/FormTouch.svg?branch=master)](https://travis-ci.org/qmathe/FormTouch)
 [![Platforms iOS](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)](http://www.apple.com)
-[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/tadija/FormTouch/LICENSE)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/qmathe/FormTouch/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 FormTouch is a minimalist and extensible form framework that makes it really easy to build static table views and complex nested forms with navigation. Its design is limited to a few core classes, but you can extend it to support new behaviors, cells and controls (slider, segmented control etc.). Out of the box, it includes:
