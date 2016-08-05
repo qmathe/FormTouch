@@ -18,8 +18,10 @@ FormTouch is a minimalist and extensible form framework that makes it really eas
 	- label + any right aligned control like a switch
 	- label + disclosure button to present or push a subcontroller
 
+Here are some UIs built with FormTouch:
 
-<img src="http://www.quentinmathe.com/github/Place%20View%206%20Tagged%20-%20iPhone%205.jpg" height="700" alt="Screenshot" />
+<img src="http://www.quentinmathe.com/github/FormTouch/Place%20View%206%20Tagged%20-%20iPhone%205.jpg" height="700" alt="Screenshot" />
+<img src="http://www.quentinmathe.com/github/FormTouch/New%20Tag%20-%20iPhone%205.png" height="700" alt="Screenshot" />
 
 To see in action, take a look at [Placeboard](http://www.placeboardapp.com) demo video.
 
